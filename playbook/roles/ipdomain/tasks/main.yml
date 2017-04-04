@@ -1,0 +1,21 @@
+---
+
+- name: get public IP
+  ipify_facts:
+  register: public_ip
+
+- name: request ip-based domain
+  uri:
+     url: "{{ ip_domain_service_url}}?source_ip={{ ipify_public_ip }}"
+     method: POST
+     return_content: yes
+  register: ip_domain_result
+
+- name: create directory for ansible custom facts
+  file: state=directory recurse=yes path=/etc/ansible/facts.d
+
+- name: install custom impi fact
+  template: src=ipdomain.fact dest=/etc/ansible/facts.d/ipdomain.fact
+
+- name: re-read facts after adding custom fact
+  setup: filter=ansible_local 

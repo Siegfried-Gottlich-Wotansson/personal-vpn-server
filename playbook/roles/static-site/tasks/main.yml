@@ -1,0 +1,34 @@
+---
+
+- name: install nginx
+  apt: pkg=nginx state=installed
+  tags:
+    - nginx
+    - static-site
+
+- name: ensure site root dir exists
+  file: 
+    path: "{{ nginx_site_root }}"
+    state: directory 
+    group: www-data
+    owner: www-data 
+
+- name: install site
+  template: src=site.nginx.conf 
+            dest=/etc/nginx/sites-available/{{ nginx_site_name }}.conf
+  notify:
+    - restart nginx
+  tags:
+    - nginx
+    - static-site
+
+- name: enable site
+  file: src=/etc/nginx/sites-available/{{ nginx_site_name }}.conf
+        dest=/etc/nginx/sites-enabled/{{ nginx_site_name }}.conf
+        state=link
+  notify:
+    - restart nginx
+  tags:
+    - nginx
+    - static-site
+

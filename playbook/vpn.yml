@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+  roles:
+    - role: strongswan
+      ipsec_enable_ikev2: true
+      ipsec_cert_source: "remote"
+      ipsec_ca_cert: "/etc/letsencrypt/live/{{ ipsec_domain }}/chain.pem"
+      ipsec_server_cert: "/etc/letsencrypt/live/{{ ipsec_domain }}/cert.pem"
+      ipsec_server_key: "/etc/letsencrypt/live/{{ ipsec_domain }}/privkey.pem"
+    - nat

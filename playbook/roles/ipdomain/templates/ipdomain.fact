@@ -1,0 +1,4 @@
+{
+  "public_ip": "{{ ipify_public_ip }}",
+  "domain":  "{{ ip_domain_result.json.domain }}"
+}

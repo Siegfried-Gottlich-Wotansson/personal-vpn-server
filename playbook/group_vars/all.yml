@@ -1,0 +1,11 @@
+---
+public_ip: "{{ ansible_local.ipdomain.source_ip }}"
+public_domain: "{{ ansible_local.ipdomain.domain }}"
+letsencrypt_email: "webmaster@{{ public_domain }}"
+
+ipsec_enable_ikev2: true
+ipsec_domain: "{{ public_domain }}"
+ipsec_remote_address: "{{ public_domain }}"
+ikev2_users: 
+   - username: demo
+     password: demo
