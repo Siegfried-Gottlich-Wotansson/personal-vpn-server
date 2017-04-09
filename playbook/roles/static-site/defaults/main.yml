@@ -9,4 +9,5 @@ nginx_site_ssl_port: 443
 nginx_site_ssl_cert_path: site.crt
 nginx_site_ssl_key_path: site.key
 nginx_site_root: /var/www/
+nginx_acme_challenge_root_dir: /var/www/acme-challenge/
 

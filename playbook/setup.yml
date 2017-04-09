@@ -5,8 +5,10 @@
     - role: ipdomain
     - role: nginx
     - role: thefinn93.letsencrypt
+      letsencrypt_webroot_path: /var/www/html/
       letsencrypt_cert_domains: 
         - "{{ ansible_local.ipdomain.domain }}"
+      #letsencrypt_server: https://acme-staging.api.letsencrypt.org/directory
       tags:
         - letsencrypt
 
@@ -19,5 +21,4 @@
       nginx_site_ssl_cert_path: "/etc/letsencrypt/live/{{ ansible_local.ipdomain.domain }}/fullchain.pem"
       nginx_site_ssl_key_path: "/etc/letsencrypt/live/{{ ansible_local.ipdomain.domain }}/privkey.pem"
       nginx_site_root: "/var/www/{{ ansible_local.ipdomain.domain }}"
-
-
+      nginx_acme_challenge_root_dir: /var/www/html

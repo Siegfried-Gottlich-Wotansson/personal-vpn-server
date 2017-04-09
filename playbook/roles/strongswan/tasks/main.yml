@@ -53,6 +53,19 @@
   tags:
     - ipsec
 
+- name: Update ipsec users
+  template: src={{ item }}
+            dest=/etc/{{ item }}
+            owner=root group=root mode=0644
+  with_items:
+    - ipsec.ikev1users.secrets
+    - ipsec.ikev2users.secrets
+  notify: restart ipsec
+  tags:
+    - ipsec
+    - users
+
+
 - include: gen_cert.yml
   when: ipsec_enable_ikev2 and ipsec_cert_source == "gen"
 
